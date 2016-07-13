@@ -5,17 +5,20 @@
 //
 
 // Vertex shader program
+// 顶点着色器
 var VSHADER_SOURCE = `
     void main() {
+        // 齐次坐标（矩阵乘法，顶点变换）
         gl_Position = vec4(0.0, 0.0, 0.0, 1.0);     // Set the vertex coordinates of the point
         gl_PointSize = 10.0;                        // Set the point size
     } 
 `;
 
 // Fragment shader program
+// 片元着色器，片元可以理解为像素。
 var FSHADER_SOURCE = `
     void main() {
-        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);    // Set the point color
+        gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);    // Set the point color, RGBA
     }
 `;
 
