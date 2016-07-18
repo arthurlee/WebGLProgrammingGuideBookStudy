@@ -56,6 +56,10 @@ function main() {
     gl.vertexAttrib1f(a_PointSize, 10.0);
 
     var u_FragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
+    if (! u_FragColor) {
+        console.log('Failed to get u_FragColor variable');
+        return;
+    }
 
     // 
     canvas.onmousedown = function(event) {
