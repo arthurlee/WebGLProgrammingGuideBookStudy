@@ -7,10 +7,10 @@
 // Vertex shader program
 var VSHADER_SOURCE = `
     attribute vec4 a_Position;
-    //attribute float a_PointSize;
+    attribute float a_PointSize;
     void main() {
         gl_Position = a_Position;
-        //gl_PointSize = a_PointSize;
+        gl_PointSize = a_PointSize;
     } 
 `;
 
@@ -47,13 +47,13 @@ function main() {
         return;
     }
 
-    // var a_PointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
-    // if (a_PointSize < 0) {
-    //     console.log('Failed to get the storage location of a_PointSize.');
-    //     return;
-    // }
+    var a_PointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
+    if (a_PointSize < 0) {
+        console.log('Failed to get the storage location of a_PointSize.');
+        return;
+    }
     
-    // gl.vertexAttrib1f(a_PointSize, 10.0);
+    gl.vertexAttrib1f(a_PointSize, 10.0);
 
     var u_FragColor = gl.getUniformLocation(gl.program, 'u_FragColor');
     if (! u_FragColor) {
@@ -64,7 +64,13 @@ function main() {
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
-    gl.drawArrays(gl.TRIANGLES, 0, n);
+    //var mode = gl.POINTS;
+    //var mode = gl.LINES;
+    //var mode = gl.LINE_STRIP;
+    //var mode = gl.LINE_LOOP;
+    var mode = gl.TRIANGLES;
+    //var mode = gl.TRIANGLES_STRIP;
+    gl.drawArrays(mode, 0, n);
 }
 
 function initVertexBuffers(gl) {
