@@ -20,7 +20,12 @@ var FSHADER_SOURCE = `
     uniform float u_Width;
     uniform float u_Height;
     void main() {
-        gl_FragColor = vec4(gl_FragCoord.x/u_Width, 0.0, gl_FragCoord.y/u_Height, 1.0);
+        //gl_FragColor = vec4(gl_FragCoord.x/u_Width, 0.0, gl_FragCoord.y/u_Height, 1.0);
+        gl_FragColor = vec4(
+            gl_FragCoord.x/u_Width, 
+            (gl_FragCoord.x + gl_FragCoord.y) / (u_Width + u_Height) / 2.0, 
+            gl_FragCoord.y/u_Height, 
+            1.0);
     }
 `;
 
@@ -62,7 +67,8 @@ function main() {
         return;
     }
 
-    gl.uniform1f(u_Width, canvas.clientWidth);
+    //gl.uniform1f(u_Width, canvas.clientWidth);
+    gl.uniform1f(u_Width, gl.drawingBufferWidth);
 
     var u_Height = gl.getUniformLocation(gl.program, 'u_Height');
     if (! u_Height) {
@@ -70,7 +76,8 @@ function main() {
         return;
     }
 
-    gl.uniform1f(u_Height, canvas.clientHeight);
+    //gl.uniform1f(u_Height, canvas.clientHeight);
+    gl.uniform1f(u_Height, gl.drawingBufferHeight);
 
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
